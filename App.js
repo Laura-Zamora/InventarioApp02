@@ -18,6 +18,9 @@ import { createStackNavigator } from "@react-navigation/stack";
 import CrearInventario from "./pantallas/CrearInventario";
 import DetallesInventario from "./pantallas/DetallesInventario";
 import ListaInvestarios from "./pantallas/ListaInventarios";
+import CrearBien from "./pantallas/CrearBien";
+import DetallesBien from "./pantallas/DetallesBien";
+import ListaBienes from "./pantallas/ListaBienes";
 
 
 
@@ -38,7 +41,11 @@ function MyStack() {
     <Stack.Navigator>
       <Stack.Screen name="ListaInventarios" component={ListaInvestarios} options={{title:'Lista Inventarios'}}/>
       <Stack.Screen name="CrearInventario" component={CrearInventario} options={{title:'Crear Inventario'}}/>
-      <Stack.Screen name="DetallesInventario" component={DetallesInventario} options={{title:'Detalles inventario'}}/>
+      <Stack.Screen name="DetallesInventario" component={DetallesInventario} options={{title:'Detalles del Inventario'}}/>
+      <Stack.Screen name="CrearBien" component={CrearBien} options={{title:'Añadir Bien'}}/>
+      <Stack.Screen name="DetallesBien" component={DetallesBien} options={{title:'Detalles del Bien'}}/>
+      <Stack.Screen name="ListaBienes" component={ListaBienes} options={{title:'Lista de Bienes'}}/>
+
     </Stack.Navigator >
   );
 }

@@ -1,90 +1,88 @@
-/*useState es paar agregar estados */
 import React, { useState } from "react";
-/*Iportar componentes TextInpu para que podamos añadir campos
-donde se pueda obtener la informacion  de los usuarios, Button vendra con un
-estilo por defecto pero igual podemos modificarlo y ScrollView para
-poder utilizar el Scroll de subir y bajar */ 
 import {
-  Button,
-  View,
-  StyleSheet,
-  TextInput,
-  ScrollView,
+    Button,
+    View,
+    StyleSheet,
+    TextInput,
+    ScrollView,
 } from "react-native";
-
+  
 import firebase from "../database/firebase";
+  
+const PantallaCrearBi = (props)=>{
 
-const PantallaCrearIn = (props) => {
-  /*se crea un estado que se llama state,setState y el valor incial sera Nombre y descripcion */
   const estadoInicial = {
     nombre: "",
-    fecha: "",
     descripcion: "",
+    cantidad: "",
+    marca: "",
+    modelo: "",
+    color: "",
   };
 
   const [state, setState] = useState(estadoInicial);
 
-  /* Creacion de funcion que recibe nombre y value para actualizar el nombre con un valor*/
   const recibirDatos = (value, nombre) => {
-    /*Establece el nombre que estas recibiendo con el valor */
+    
     setState({ ...state, [nombre]: value });
   };
 
-  /*Funcion para crear inventario */
-  const BotoncrearInventario = async () => {
-    /*Si del estado actual el nombre esta vacio,enviar alerta per si no que utilice firebase */
+
+  const BotoncrearBien = async () => {
     if (state.nombre === "") {
-      alert("Ingresar un nombre al inventario");
+      alert("Ingresar un nombre al bien");
     } else {
-
       try {
-        /* Desde mi base de datos de firebase en una coleccion imventarios voy a añadir un objeto
-        con las siguientes propiedades */
-        
-        await firebase.db.collection("inventarios").add({
-          /*Propiedad id que va a tener el valor que tengo actualmente en el estado de  id */
+        await firebase.db.collection("bienes").add({
           nombre:state.nombre,
-          fecha:state.fecha,
           descripcion:state.descripcion,
+          cantidad:state.cantidad,
+          marca:state.marca,
+          modelo:state.modelo,
+          color:state.color,
         });
-
+    
         /*Redireccionar a otra vista, navegar a otra pantalla con props */
 
-        props.navigation.navigate("ListaInventarios");
+        props.navigation.navigate("ListaBienes");
       } catch (error) {
         console.log(error)
       }
     }
   };
 
-  /*TextInpunt va a contener todo lo que el usuario ingrese */
-  return (
+
+
+  return(
+
     <ScrollView style={styles.containerScroll}> 
       <View style={styles.contenedorform}>
-                
         <TextInput style={styles.inputGroup} placeholder="Nombre" onChangeText={(value)=>recibirDatos(value,"nombre")}/>
-        <TextInput style={styles.inputGroup} placeholder="Fecha" onChangeText={(value)=>recibirDatos(value,"fecha")}/>
+        <TextInput style={styles.inputGroup} placeholder="Cantidad" onChangeText={(value)=>recibirDatos(value,"cantidad")}/>
+        <TextInput style={styles.inputGroup} placeholder="Marca" onChangeText={(value)=>recibirDatos(value,"marca")}/>
+        <TextInput style={styles.inputGroup} placeholder="Modelo" onChangeText={(value)=>recibirDatos(value,"modelo")}/>
+        <TextInput style={styles.inputGroup} placeholder="Color" onChangeText={(value)=>recibirDatos(value,"color")}/>
         <TextInput style={styles. textArea} style={styles.textArea} placeholder="Descripcion" onChangeText={(value)=>recibirDatos(value,"descripcion")}/>
-        <Button style={styles.boton} title="CREAR INVENTARIO" onPress={()=> BotoncrearInventario()}/>
+        <Button style={styles.boton} title="AÑADIR BIEN" onPress={()=> BotoncrearBien()}/>
       </View>
-           
-
     </ScrollView>
   );
+
 };
+
 
 const styles = StyleSheet.create({
   containerScroll:{
     flex:1,
-    paddingTop:70,
+    paddingTop:30,
     alignContent:'center',
     backgroundColor:'#fff',
-    
+      
   },
 
   contenedorform:{
     width: 360,
-    height: 300,
+    height: 450,
     padding: 30,
     margin:'auto',
     borderRadius: 10,
@@ -96,9 +94,9 @@ const styles = StyleSheet.create({
     shadowOpacity:0.43,
     shadowRadius:9.51,
     elevation:10,
-   
+       
   },
-
+    
   inputGroup:{
     flex:1,
     padding:0,
@@ -107,23 +105,23 @@ const styles = StyleSheet.create({
     borderBottomColor:'#cccccc',
     padding:5,
   },
-
+    
   textArea:{
     flex:2,
     marginBottom:15,
     backgroundColor:'#f0efef',
     padding:5,
   },
-
+    
   imagen:{
     flex:1,
   },
-
+    
   boton:{
     borderRadius: 10,
     borderWidth:1,
   },
-
+    
   loader: {
     left: 0,
     right: 0,
@@ -133,7 +131,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-
+  
+    
+  
 });
 
-export default PantallaCrearIn;
+export default PantallaCrearBi;

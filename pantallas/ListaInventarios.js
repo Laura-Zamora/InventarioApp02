@@ -63,7 +63,7 @@ const PantallaListaIn = (props) => {
             }}
             />
 
-            <FAB title=">"/>
+            <FAB title=">" onPress={()=>props.navigation.navigate('ListaBienes')}/>
             
           </ListItem>
         );
